@@ -1,5 +1,7 @@
 import React from 'react'
-import {Apicall} from './api-call'
+import {Apicall} from './api-call';
+import { CircularProgress} from '@material-ui/core';
+import Weatherpanel from './weatherPanel';
 
 class Weatherapp extends React.Component {
     constructor(props){
@@ -7,7 +9,8 @@ class Weatherapp extends React.Component {
         this.state={
             cityName:'Kathmandu',
             weatherData:{},
-            isLoading:true
+            isLoading:true,
+            searchValue:''
         }
     }
     componentDidMount() {
@@ -15,10 +18,9 @@ class Weatherapp extends React.Component {
   }
     getWeatherData=()=>{
             let self=this;
-            Apicall.Weatherapicall('Kathmandu').then(function (response) {
-                console.log(response.data);
+            Apicall.Weatherapicall(this.state.cityName).then(response=> {
                 self.setState({
-                    whetherData:response.data,
+                    weatherData:response.data,
                     isLoading:false
                 })
         }).catch(function (error){
@@ -26,16 +28,31 @@ class Weatherapp extends React.Component {
             console.log('from catch');
         });
     }
+    handleChange=(event)=>{
+    this.setState({
+        searchValue:event.target.value
+    })
+    }
+    onButtonClick=()=>{
+        let self=this;
+        this.setState({
+            cityName:self.state.searchValue
+        })
+        this.getWeatherData();
+    }
 
 
     render(){
         return (
             <div>
-                hello weather
-                {console.log('hwllo')}
-            
+                <input type='text'onChange={this.handleChange}></input>
+                {console.log(this.state.searchValue)}
+                <button onClick={this.onButtonClick}>Search</button>
+                {console.log(this.state.cityName)}
+                {this.state.isLoading?<CircularProgress/>:
                 
-                
+                <Weatherpanel data={this.state.weatherData}/>
+                }
             </div>
         );
     }

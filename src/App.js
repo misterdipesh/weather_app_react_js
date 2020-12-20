@@ -1,7 +1,6 @@
 
 import React from 'react'
 import Weatherapp from './components/weatherapp'
-import WhetherHome from './weatherfrom sir/whetherHome'
 
 
 function App() {
