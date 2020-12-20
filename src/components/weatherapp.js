@@ -10,7 +10,6 @@ class Weatherapp extends React.Component {
             cityName:'Kathmandu',
             weatherData:{},
             isLoading:true,
-            searchValue:''
         }
     }
     componentDidMount() {
@@ -34,6 +33,7 @@ class Weatherapp extends React.Component {
         cityName:event.target.value
         
     })
+    console.log(event.target.value)
     }
     onButtonClick=()=>{
         this.setState({
@@ -45,10 +45,11 @@ class Weatherapp extends React.Component {
 
     render(){
         return (
-            <div>
-                <input type='text' placeholder='Enter a place...'onChange={this.handleChange}></input>
-                {console.log(this.state.searchValue)}
-                <button onClick={this.onButtonClick}>Search</button>
+            <div style={{minWidth:'830px'}}>
+                <input type='text'style={{width:"75%",minWidth:'300px',padding:'10px 10px',margin:'2px 8px',borderRadius:'6px',border:'solid blue'}} 
+                placeholder='Enter a place...'onChange={this.handleChange}></input>
+                <button style={{float:"right",width:'18%',minWidth:"60px",padding:'10px 10px',margin:'2px 8px',backgroundColor:'blue',color:'white',borderRadius:'6px',cursor:'pointer'}}
+                onClick={this.onButtonClick}>Search</button>
                 {console.log(this.state.cityName)}
                 <div>
                 {this.state.isLoading?<CircularProgress/>:
