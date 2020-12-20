@@ -29,14 +29,15 @@ class Weatherapp extends React.Component {
         });
     }
     handleChange=(event)=>{
+    let self=this;
     this.setState({
-        searchValue:event.target.value
+        cityName:event.target.value
+        
     })
     }
     onButtonClick=()=>{
-        let self=this;
         this.setState({
-            cityName:self.state.searchValue
+            isLoading:true,
         })
         this.getWeatherData();
     }
@@ -45,14 +46,17 @@ class Weatherapp extends React.Component {
     render(){
         return (
             <div>
-                <input type='text'onChange={this.handleChange}></input>
+                <input type='text' placeholder='Enter a place...'onChange={this.handleChange}></input>
                 {console.log(this.state.searchValue)}
                 <button onClick={this.onButtonClick}>Search</button>
                 {console.log(this.state.cityName)}
+                <div>
                 {this.state.isLoading?<CircularProgress/>:
                 
                 <Weatherpanel data={this.state.weatherData}/>
+                
                 }
+                </div>
             </div>
         );
     }
